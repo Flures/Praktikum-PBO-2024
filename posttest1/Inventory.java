@@ -6,23 +6,22 @@ import java.util.Scanner;
 
 public class Inventory {
     private static ArrayList<Equipment> equipmentList = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
         int choice;
         do {
             displayMenu();
             System.out.print("Masukkan Pilihan: ");
-            choice = getIntInput(scanner);
+            choice = getIntInput();
             performMenuAction(choice);
         } while (choice != 0);
 
         scanner.close();
     }
 
-    private static void createEquipmentFromInput() {
-        Scanner scanner = new Scanner(System.in);
 
+    private static void createEquipmentFromInput() {
         System.out.print("Masukkan Nama Equipment: ");
         String name = scanner.nextLine();
 
@@ -30,10 +29,10 @@ public class Inventory {
         String type = scanner.nextLine();
 
         System.out.print("Masukkan Attack Equipment: ");
-        int attack = getIntInput(scanner);
+        int attack = getIntInput();
 
         System.out.print("Masukkan Defense Equipment: ");
-        int defense = getIntInput(scanner);
+        int defense = getIntInput();
 
         Equipment newEquipment = new Equipment(name, type, attack, defense);
         equipmentList.add(newEquipment);
@@ -43,11 +42,9 @@ public class Inventory {
         System.out.println("Tipe: " + newEquipment.getType());
         System.out.println("Attack: " + newEquipment.getAttack());
         System.out.println("Defense: " + newEquipment.getDefense());
-
     }
 
     private static void updateEquipmentByName() {
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Masukkan nama equipment yang ingin diupdate: ");
         String name = scanner.nextLine();
         Equipment foundEquipment = findEquipmentByName(name);
@@ -57,9 +54,9 @@ public class Inventory {
             System.out.print("Masukkan tipe baru: ");
             String newType = scanner.nextLine();
             System.out.print("Masukkan attack baru: ");
-            int newAttack = getIntInput(scanner);
+            int newAttack = getIntInput();
             System.out.print("Masukkan defense baru: ");
-            int newDefense = getIntInput(scanner);
+            int newDefense = getIntInput();
             foundEquipment.setName(newName);
             foundEquipment.setType(newType);
             foundEquipment.setAttack(newAttack);
@@ -71,7 +68,6 @@ public class Inventory {
     }
 
     private static void deleteEquipmentByName() {
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Masukkan nama equipment untuk dihapus: ");
         String deleteName = scanner.nextLine();
         Equipment foundEquipment = findEquipmentByName(deleteName);
@@ -102,53 +98,39 @@ public class Inventory {
                 createEquipmentFromInput();
                 break;
             case 2:
-                if (equipmentList.isEmpty()) {
-                    System.out.println("Tidak ada equipment yang tersedia.");
-                } else {
-                    int counter = 1;
-                    System.out.println("Equipment:");
-                    for (Equipment equipment : equipmentList) {
-                        System.out.println("----------------------------------");
-                        System.out.println("Equipment " + counter++);
-                        System.out.println("Nama: " + equipment.getName());
-                        System.out.println("Tipe: " + equipment.getType());
-                        System.out.println("Attack: " + equipment.getAttack());
-                        System.out.println("Defense: " + equipment.getDefense());
-                        System.out.println("----------------------------------");
-                    }
+            if (equipmentList.isEmpty()) {
+                System.out.println("Tidak ada equipment yang tersedia.");
+            } else {
+                int counter = 1;
+                System.out.println("Equipment:");
+                for (Equipment equipment : equipmentList) {
+                    System.out.println("----------------------------------");
+                    System.out.println("Equipment " + counter++);
+                    System.out.println("Nama: " + equipment.getName());
+                    System.out.println("Tipe: " + equipment.getType());
+                    System.out.println("Attack: " + equipment.getAttack());
+                    System.out.println("Defense: " + equipment.getDefense());
+                    System.out.println("----------------------------------");
                 }
+            }
                 break;
             case 3:
-                if (equipmentList.isEmpty()) {
-                    System.out.println("Tidak ada equipment untuk diupdate.");
-                } else {
-                    updateEquipmentByName();
-                }
-                break;
-
-            case 4:
-                if (equipmentList.isEmpty()) {
-                    System.out.println("Tidak ada equipment untuk dihapus.");
-                } else {
-                    deleteEquipmentByName();
-                }
-                break;
-
-            default:
-                System.out.println("Pilihan invalid!");
-                break;
-        }
-
-    }
-
-    private static int getIntInput(Scanner scanner) {
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Masukkan harus berupa bilangan bulat.");
-                System.out.print("Coba lagi: ");
+            if (equipmentList.isEmpty()) {
+                System.out.println("Tidak ada equipment untuk diupdate.");
+            } else {
+                updateEquipmentByName();
             }
+            break;
+            case 4:
+            if (equipmentList.isEmpty()) {
+                System.out.println("Tidak ada equipment untuk dihapus.");
+            } else {
+                deleteEquipmentByName();
+            }
+            break;
+            default:
+                System.out.println("Pilihan tidak valid!");
+                break;
         }
     }
 
@@ -159,6 +141,17 @@ public class Inventory {
             }
         }
         return null;
+    }
+
+    private static int getIntInput() {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Masukkan harus berupa bilangan bulat.");
+                System.out.print("Coba lagi: ");
+            }
+        }
     }
 }
 

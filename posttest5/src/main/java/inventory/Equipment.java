@@ -233,8 +233,12 @@ class DamageEnhancer extends EquipmentEnhancer {
 
     @Override
     public void enhanceEquipment() {
-        int newAttack = enhancedEquipment.getAttack() + damageBonus;
-        enhancedEquipment.setAttack(newAttack);
-        System.out.println("Attack increased to " + newAttack);
+        if(enhancedEquipment instanceof Weapon || enhancedEquipment instanceof Accessory) {
+            int newAttack = enhancedEquipment.getAttack() + damageBonus;
+            enhancedEquipment.setAttack(newAttack);
+            System.out.println("Attack naik ke: " + newAttack);
+        } else {
+            System.out.println("Damage enhancement hanya bisa diberikan kepada Weapon dan Accessory.");
+        }
     }
 }

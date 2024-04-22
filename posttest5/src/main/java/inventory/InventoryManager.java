@@ -33,7 +33,7 @@ public class InventoryManager {
             System.out.println("1. Weapon");
             System.out.println("2. Shield");
             System.out.println("3. Accessory");
-            System.out.println("Masukkan Pilihan: ");
+            System.out.print("Masukkan Pilihan: ");
             typeChoice = getIntInput();
         } else {
             switch (defaultType.toLowerCase()) {
@@ -302,6 +302,7 @@ public class InventoryManager {
             System.out.println("Pilih jenis enhancement yang ingin diberikan:");
             System.out.println("1. Critical Enhancement");
             System.out.println("2. Damage Enhancement");
+            System.out.print("Masukkan Pilihan: ");
             int choice = getIntInput();
             EquipmentEnhancer enhancer = null;
             switch (choice) {
